@@ -17,14 +17,6 @@ namespace CPUWindowsFormFramework
             lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        //public static void SetListBinding(ComboBox lst, DataTable sourcedt, DataTable targetdt, string tablename)
-        //{
-        //    lst.DataSource = sourcedt;
-        //    lst.ValueMember = tablename + "Id";
-        //    lst.DisplayMember = lst.Name.Substring(3);
-        //    lst.DataBindings.Add("SelectedValue", targetdt, lst.ValueMember, false, DataSourceUpdateMode.OnPropertyChanged);
-        //}
-
 
         public static void SetControlBinding(Control ctrl, DataTable dt)
         {
