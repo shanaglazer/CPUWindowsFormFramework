@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Xml.Linq;
 
 namespace CPUWindowsFormFramework
 {
@@ -55,11 +56,42 @@ namespace CPUWindowsFormFramework
         {
             grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             grid.RowHeadersWidth = 25;
+            foreach(DataGridViewColumn col in grid.Columns)
+            {
+                if (col.Name.EndsWith("Id") || col.Name.EndsWith("id"))
+                {
+                    col.Visible = false;
+                }
+            }
             string pkname = tablename + "Id";
             if (grid.Columns.Contains(pkname))
             {
                 grid.Columns[pkname].Visible = false;
             }
+        }
+
+        public static int GetIdFromGrid(DataGridView grid, int rowindex, string columnname)
+        {
+            int id = 0;
+            if(rowindex < grid.Rows.Count && grid.Columns.Contains(columnname) && grid.Rows[rowindex].Cells[columnname].Value != DBNull.Value)
+            {
+                if (grid.Rows[rowindex].Cells[columnname].Value is int)
+                {
+                    id = (int)grid.Rows[rowindex].Cells[columnname].Value;
+                }
+            }
+            return id;
+        }
+
+        public static void AddComboboxToGrid(DataGridView grid, DataTable datasource, string tablename, string displaymember)
+        {
+            DataGridViewComboBoxColumn c = new();
+            c.DataSource = datasource;
+            c.DisplayMember = displaymember;
+            c.ValueMember = tablename + "Id";
+            c.DataPropertyName = c.ValueMember;
+            c.HeaderText = tablename;
+            grid.Columns.Insert(0, c);
         }
 
         public static bool IsFormOpen(Type formtype, int pkvalue = 0)
