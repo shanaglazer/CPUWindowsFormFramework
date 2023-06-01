@@ -47,6 +47,7 @@ namespace CPUWindowsFormFramework
 
         public static void FormatGridForEdit(DataGridView grid, string tablename)
         {
+            grid.EditMode = DataGridViewEditMode.EditOnEnter;
             DoFormatGrid(grid, tablename);
         }
 
